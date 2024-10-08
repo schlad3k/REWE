@@ -416,7 +416,7 @@
 				<configuration>
 					<from>
 						<image>
-							gcr.io/distroless/java21@sha256:4ef80b38c61881bdd4d682df9989a9816f4926f8fb41eaaf55d54a6affe6a6c2
+							gcr.io/distroless/java21@sha256:032a034554a750adf55c44fa445d7a44cd875f73161660b472c793723703925c
 						</image>
 					</from>
 					<container>
