@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.4</version>
+		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -16,8 +16,15 @@
 	<name>tgm-x2fresh_backend</name>
 	<description>tgm-x2fresh backend</description>
 
+	<repositories>
+		<repository>
+			<id>rewe-jfrog</id>
+			<url>https://riag.jfrog.io/artifactory/maven-virtual</url>
+		</repository>
+	</repositories>
+
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<spring-cloud.version>2021.0.3</spring-cloud.version>
 		<spring-cloud-gcp.version>3.3.0</spring-cloud-gcp.version>
 		<logback-json-classic.version>0.1.5</logback-json-classic.version>
@@ -28,8 +35,8 @@
 
 		<!-- testing -->
 		<rewe-archunit-rules.version>1.1.1</rewe-archunit-rules.version>
-		<maven-failsafe-plugin.version>3.0.0-M6</maven-failsafe-plugin.version>
-		<maven-surefire-plugin.version>3.0.0-M6</maven-surefire-plugin.version>
+		<maven-failsafe-plugin.version>3.5.1</maven-failsafe-plugin.version>
+		<maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
 		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
 
 		<!--SONARQUBE default, please adapt -->
