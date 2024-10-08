@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <include resource="./json-appender.xml"/>
+
+    <!-- config for STDOUT and SAVE-TO-FILE -->
+    <springProfile name="ci">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="at.rewe" additivity="false" level="debug">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
+
+    <!-- config for STDOUT and SAVE-TO-FILE -->
+    <springProfile name="local">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        <logger name="at.rewe" additivity="false" level="debug">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="org.hibernate" additivity="false" level="debug">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+        <logger name="org.hibernate.type.descriptor.sql" additivity="false" level="trace">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="development,staging,production">
+        <property name="projectId" value="${projectId:-${GOOGLE_CLOUD_PROJECT}}"/>
+        <root level="info">
+            <appender-ref ref="CONSOLE_JSON_STACKDRIVER"/>
+        </root>
+        <logger name="at.rewe" additivity="false" level="debug">
+            <appender-ref ref="CONSOLE_JSON_STACKDRIVER"/>
+        </logger>
+
+    </springProfile>
+
+</configuration>

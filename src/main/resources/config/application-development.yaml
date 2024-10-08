@@ -1,0 +1,43 @@
+spring:
+  cloud:
+    config:
+      enabled: false
+    gcp:
+      trace:
+        enabled: true
+  sleuth:
+    baggage:
+      correlation-fields:
+        - client
+        - x-request-id
+        - X-REWE-Who-am-I
+        - idempotency-key
+      remote-fields:
+        - client
+        - x-request-id
+        - X-REWE-Who-am-I
+        - idempotency-key
+      tag-fields:
+        - x-request-id
+    sampler:
+      probability: 1
+    propagation:
+      tag:
+        enabled: false
+#  flyway:
+#    enabled: true
+#    credentialsPath: "file:/vault/secrets/secrets.json"
+#  datasource:
+#    credentialsPath: "file:/vault/secrets/secrets.json"
+#    hikari:
+#      connection-test-query: SELECT 1
+#      jdbcUrl: "jdbc:postgresql://platform.development.cloud.riag.digital:5432/db"
+#      connectionTimeout: 20000
+#      maximumPoolSize: 1
+  management:
+    endpoint:
+      health:
+        show-details: always
+#keycloak:
+#  enabled: true
+#  auth-server-url: https://keycloak-stage-internal.portal.1tld.biz/auth/

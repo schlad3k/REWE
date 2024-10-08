@@ -1,0 +1,6 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "local>developer-platform/platform-scaffolding/renovate-bot/renovate-config:gitlab-ci"
+  ]
+}

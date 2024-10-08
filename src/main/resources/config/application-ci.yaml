@@ -1,0 +1,13 @@
+spring:
+#  flyway:
+#    enabled: true
+#  datasource:
+#    hikari:
+#      jdbcUrl: jdbc:postgresql://postgres:5432/db
+#      connection-test-query: SELECT 1
+#      connectionTimeout: 20000
+#      maximumPoolSize: 10
+  management:
+    endpoint:
+      health:
+        show-details: always

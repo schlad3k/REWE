@@ -1,0 +1,12 @@
+include:
+- project: developer-platform/platform-scaffolding/gitlab-ci-templates
+  ref: v4.3.10
+  file:
+  - type/java/pipeline-maven.yaml
+variables:
+  ORGANISATION: riag
+  PROD_CLUSTER: supply
+  PRODUCT: article-mdm
+  APPLICATION: tgm-x2fresh
+  CONTAINER: backend
+  DEPLOY_CPL: 'true'

@@ -1,0 +1,81 @@
+spring:
+  messages:
+    basename: message
+    encoding: UTF-8
+  jackson:
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+  web:
+    pageable:
+      default-page-size: 20
+      max-page-size: 100
+  cloud:
+    gcp:
+      trace:
+        enabled: false
+#  datasource:
+#    credentialsPath: "classpath:default_credentials.json"
+#    hikari:
+#      jdbcUrl: jdbc:postgresql://localhost:5432/db
+#  jpa:
+#    open-in-view: false
+#    properties:
+#      hibernate:
+#        default_schema: "schema"
+#  flyway:
+#    credentialsPath: "classpath:default_credentials.json"
+#    enabled: false
+#    schemas: "inventory"
+#    locations:
+#      - "filesystem:db/migration"
+app:
+  description: "@project.description@"
+  version: "@project.version@"
+  aop:
+    execution-time-threshold: 200
+
+server:
+  port: 8080
+  servlet:
+    context-path: /riag/supply/article-mdm/tgm-x2fresh/backend
+
+#keycloak:
+#  enabled: true
+#  auth-server-url: https://keycloak-stage-internal.portal.1tld.biz/auth/
+#  realm: as-spring-boot
+#  resource: article-service-backend
+#  ssl-required: external
+#  # If set to true, the adapter will look inside the token for application level role mappings for the user.
+#  # If false, it will look at the realm level for user role mappings. This is OPTIONAL. The default value is false.
+#  use-resource-role-mappings: true
+#  # Used to disable SSL certificate validation. Only for development purpose, never use in production!
+#  # Need to use this for self signed certificates.
+#  disable-trust-manager: true
+#  # This should be set to true for services. If enabled the adapter will not attempt to authenticate users,
+#  # but only verify bearer tokens. This is OPTIONAL. The default value is false.
+#  bearer-only: true
+#  # If set to true, then during authentication with the bearer token,
+#  # the adapter will verify whether the token contains this client name (resource) as an audience.
+#  # The option is especially useful for services, which primarily serve requests authenticated by the bearer token.
+#  verify-token-audience: true
+
+#only health and prometheus endpoint should be enabled and exposed
+management:
+  endpoint:
+    health:
+      enabled: true
+    prometheus:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 9001
+#  # disabling it here for all datasources, implicitly enable for flyway
+#  health:
+#    db:
+#      false
+health:
+  config:
+    enabled: true
