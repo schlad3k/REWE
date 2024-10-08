@@ -1,8 +1,10 @@
 include:
-- project: developer-platform/platform-scaffolding/gitlab-ci-templates
-  ref: v4.3.10
-  file:
-  - type/java/pipeline-maven.yaml
+  - project: developer-platform/platform-scaffolding/gitlab-ci-templates
+    ref: v4.3.17
+    file:
+      - type/java/pipeline-maven.yaml
+      - type/features/java-21-maven.yaml
+
 variables:
   ORGANISATION: riag
   PROD_CLUSTER: supply
