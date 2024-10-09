@@ -1,5 +1,11 @@
 # riag/supply/article-mdm/tgm-x2fresh/backend
 
+## Running the project
+
+```shell
+./mvnw spring-boot:run -Dspring-boot.run.profiles=local
+```
+
 ## Application Architecture Blueprint
 
 Please refer to the Book of Standards and the Application Blueprint Inventory Service for guidance
