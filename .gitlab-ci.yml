@@ -1,6 +1,6 @@
 include:
   - project: developer-platform/platform-scaffolding/gitlab-ci-templates
-    ref: v4.3.17
+    ref: v4.3.18
     file:
       - type/java/pipeline-maven.yaml
       - type/features/java-21-maven.yaml
