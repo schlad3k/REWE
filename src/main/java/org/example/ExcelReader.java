@@ -1,26 +1,26 @@
 package org.example;
 
-import java.io.File;
-import java.io.FileInputStream;
+import org.apache.poi.ss.usermodel.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+@Component
 public class ExcelReader {
-    private String filePath;
 
-    public ExcelReader(String filePath) {
-        this.filePath = filePath;
-    }
+    @Autowired
+    private GitLabService gitLabService;
 
-    public List<String> readCells(List<String> cellReferences) {
+    public List<String> readCellsFromGitLab(String projectId, String filePath, String branch, List<String> cellReferences) {
         List<String> cellValues = new ArrayList<>();
 
-        try (FileInputStream fis = new FileInputStream(new File(filePath));
-             Workbook workbook = new XSSFWorkbook(fis)) {
+        try (InputStream excelStream = gitLabService.fetchExcelFile(projectId, filePath, branch);
+             Workbook workbook = WorkbookFactory.create(excelStream)) {
 
-            Sheet sheet = workbook.getSheetAt(0);  // Read from the first sheet
+            Sheet sheet = workbook.getSheetAt(0); // Read from the first sheet
             for (String cellReference : cellReferences) {
                 CellReference ref = new CellReference(cellReference);
                 String cellValue = getCellValue(ref.getRowIndex(), ref.getColIndex(), sheet);
