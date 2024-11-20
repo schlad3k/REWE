@@ -1,7 +1,6 @@
 package org.example;
 
 import org.apache.poi.ss.usermodel.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -11,15 +10,10 @@ import java.util.List;
 @Component
 public class ExcelReader {
 
-    @Autowired
-    private GitLabService gitLabService;
-
-    public List<String> readCellsFromGitLab(String projectId, String filePath, String branch, List<String> cellReferences) {
+    public List<String> readCellsFromStream(InputStream excelStream, List<String> cellReferences) {
         List<String> cellValues = new ArrayList<>();
 
-        try (InputStream excelStream = gitLabService.fetchExcelFile(projectId, filePath, branch);
-             Workbook workbook = WorkbookFactory.create(excelStream)) {
-
+        try (Workbook workbook = WorkbookFactory.create(excelStream)) {
             Sheet sheet = workbook.getSheetAt(0); // Read from the first sheet
             for (String cellReference : cellReferences) {
                 CellReference ref = new CellReference(cellReference);
