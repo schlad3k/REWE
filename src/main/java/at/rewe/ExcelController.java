@@ -7,9 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/excel")
@@ -17,36 +15,19 @@ public class ExcelController {
 
     @Autowired
     private ExcelReader excelReader;
-//curl -X POST http://localhost:8080/riag/supply/article-mdm/tgm-x2fresh/backend/api/excel/uploadFile \ -F "file=@/Users/TGM_x2FRESH/Documents/Stammdatenblätter/ARTIKEL-STAMMBLATT (1).xlsx"
+    //curl -X POST http://localhost:8080/riag/supply/article-mdm/tgm-x2fresh/backend/api/excel/uploadFile \ -F "file=@/Users/TGM_x2FRESH/Documents/Stammdatenblätter/ARTIKEL-STAMMBLATT (1).xlsx"
     @PostMapping("/uploadFile")
     public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
-            List<CellReference> list = new ArrayList<>();
-            list.add(new CellReference("I15"));
-            list.add(new CellReference("BQ54"));
+            Map<String, CellReference> map = new HashMap<String, CellReference>();
+            map.put("Lieferant Bezeichnung", new CellReference("B7"));
+            map.put("GLN", new CellReference("B9"));
+            map.put("Ware lieferbar ab", new CellReference("V9"));
+            map.put("Artikelbeschreibung", new CellReference("Q13"));
+            map.put("Marke", new CellReference("I15"));
             // Call the ExcelReader to read the values
 
-            List<String> cellValues = excelReader.readCellsFromUpload(file, list);
-
+            Map<String,String> cellValues = excelReader.readCellsFromUpload(file, map);
+            System.out.println(cellValues.toString());
             return ResponseEntity.ok(cellValues.toString());
-
-
     }
-    /*
-    @PostMapping("/upload")
-    public ResponseEntity<List<String>> uploadExcelFile(
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("cellReferences") String cellReferences) {
-        try {
-            // Split the cell references into a list
-            List<String> cellReferenceList = Arrays.asList(cellReferences.split("Q13,"));
-
-            // Call the ExcelReader to read the values
-            List<String> cellValues = excelReader.readCellsFromUpload(file, cellReferenceList);
-
-            return ResponseEntity.ok(cellValues);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(
-                    List.of("Error processing file: " + e.getMessage()));
-        }
-    }*/
 }

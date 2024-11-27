@@ -9,6 +9,7 @@ public class CellReference {
 
   public CellReference(String cr) {
     this.cellReference = cr;
+    convertToIndicies();
   }
 
   public int[] convertToIndicies() {
@@ -25,7 +26,6 @@ public class CellReference {
     }
     colIndex--;
 
-    System.out.println(cellReference+" : " + rowIndex +colIndex);
 
     return new int[]{rowIndex, colIndex};
   }
