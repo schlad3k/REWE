@@ -13,16 +13,15 @@ public class ExcelReader {
 
 
 
-    public List<String> readCellsFromUpload(MultipartFile file, List<String> cellReferences) {
+    public List<String> readCellsFromUpload(MultipartFile file, List<CellReference> cellReferences) {
         List<String> cellValues = new ArrayList<>();
 
         try (InputStream excelStream = file.getInputStream();
              Workbook workbook = WorkbookFactory.create(excelStream)) {
 
             Sheet sheet = workbook.getSheetAt(0); // Read from the first sheet
-            for (String cellReference : cellReferences) {
-                CellReference ref = new CellReference(cellReference);
-                String cellValue = getCellValue(ref.getRowIndex(), ref.getColIndex(), sheet);
+            for (CellReference cellReference : cellReferences) {
+                String cellValue = getCellValue(cellReference.getRowIndex(), cellReference.getColIndex(), sheet);
                 cellValues.add("Value at " + cellReference + ": " + cellValue);
             }
         } catch (Exception e) {
