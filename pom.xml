@@ -1,499 +1,506 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<groupId>at.rewe.riag.supply.article-mdm.tgm-x2fresh</groupId>
-	<artifactId>backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>tgm-x2fresh_backend</name>
-	<description>tgm-x2fresh backend</description>
+    <groupId>at.rewe.riag.supply.article-mdm.tgm-x2fresh</groupId>
+    <artifactId>backend</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>tgm-x2fresh_backend</name>
+    <description>tgm-x2fresh backend</description>
 
-	<properties>
-		<java.version>21</java.version>
-		<spring-cloud.version>2021.0.3</spring-cloud.version>
-		<spring-cloud-gcp.version>3.3.0</spring-cloud-gcp.version>
-		<logback-json-classic.version>0.1.5</logback-json-classic.version>
-		<spring-doc.openapi.version>1.6.8</spring-doc.openapi.version>
-		<mapstruct.version>1.4.2.Final</mapstruct.version>
-		<lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
-		<log4j2.version>2.17.1</log4j2.version>
+    <properties>
+        <java.version>21</java.version>
+        <spring-cloud.version>2021.0.3</spring-cloud.version>
+        <spring-cloud-gcp.version>3.3.0</spring-cloud-gcp.version>
+        <logback-json-classic.version>0.1.5</logback-json-classic.version>
+        <spring-doc.openapi.version>1.6.8</spring-doc.openapi.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok-maven-plugin.version>1.18.20.0</lombok-maven-plugin.version>
+        <log4j2.version>2.17.1</log4j2.version>
 
-		<!-- testing -->
-		<rewe-archunit-rules.version>1.1.1</rewe-archunit-rules.version>
-		<maven-failsafe-plugin.version>3.5.1</maven-failsafe-plugin.version>
-		<maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
-		<jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <!-- testing -->
+        <rewe-archunit-rules.version>1.1.1</rewe-archunit-rules.version>
+        <maven-failsafe-plugin.version>3.5.1</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.5.1</maven-surefire-plugin.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
 
-		<!--SONARQUBE default, please adapt -->
-		<sonar.scm.disabled>true</sonar.scm.disabled>
-		<sonar.qualitygate.wait>true</sonar.qualitygate.wait>
-		<sonar.coverage.exclusions>**/config/**/*.*, **/*DTO.java, **/*EntityKey.java</sonar.coverage.exclusions>
-		<sonar.exclusions>**/config/**/*.*, **/*DTO.java, **/*EntityKey.java</sonar.exclusions>
-		<sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
-		<sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
-		<checkstyle.version>8.45.1</checkstyle.version>
-		<maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
-		<!-- build tools -->
-		<jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
-	</properties>
+        <!--SONARQUBE default, please adapt -->
+        <sonar.scm.disabled>true</sonar.scm.disabled>
+        <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
+        <sonar.coverage.exclusions>**/config/**/*.*, **/*DTO.java, **/*EntityKey.java</sonar.coverage.exclusions>
+        <sonar.exclusions>**/config/**/*.*, **/*DTO.java, **/*EntityKey.java</sonar.exclusions>
+        <sonar.cpd.exclusions>**/*Entity.java</sonar.cpd.exclusions>
+        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
+        <checkstyle.version>8.45.1</checkstyle.version>
+        <maven-checkstyle-plugin.version>3.2.0</maven-checkstyle-plugin.version>
+        <!-- build tools -->
+        <jib-maven-plugin.version>3.1.4</jib-maven-plugin.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.cloud</groupId>
-			<artifactId>spring-cloud-gcp-starter-logging</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>ch.qos.logback.contrib</groupId>
-			<artifactId>logback-json-classic</artifactId>
-			<version>${logback-json-classic.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>${spring-doc.openapi.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-core</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>io.micrometer</groupId>
-			<artifactId>micrometer-registry-prometheus</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${mapstruct.version}</version>
-		</dependency>
-
-		<!-- Test -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<!--<dependency>-->
-		<!--	<groupId>at.rewe.riag.tech.app-arch</groupId>-->
-		<!--	<artifactId>rewe-archunit-rules</artifactId>-->
-		<!--	<version>${rewe-archunit-rules.version}</version>-->
-		<!--	<scope>test</scope>-->
-		<!--</dependency>-->
-	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<scope>import</scope>
-				<type>pom</type>
-			</dependency>
-			<dependency>
-				<groupId>com.google.cloud</groupId>
-				<artifactId>spring-cloud-gcp-dependencies</artifactId>
-				<version>${spring-cloud-gcp.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
 
 
-	<build>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.yaml</include>
-				</includes>
-			</testResource>
-		</testResources>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
 
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.sonarsource.scanner.maven</groupId>
-					<artifactId>sonar-maven-plugin</artifactId>
-					<version>${sonar-maven-plugin.version}</version>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco-maven-plugin.version}</version>
-				<configuration>
-					<excludes>
-						<exclude>target/generated-sources/**/*</exclude>
-						<exclude>at/rewe/**/*DTO.*</exclude>
-						<exclude>at/rewe/**/*Entity.*</exclude>
-						<exclude>at/rewe/**/*EntityKey.*</exclude>
-						<exclude>at/rewe/**/*Config*.*</exclude>
-						<exclude>at/rewe/**/config/*</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>before-unit-test-execution</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</destFile>
-							<propertyName>surefire.jacoco.args</propertyName>
-						</configuration>
-					</execution>
-					<execution>
-						<id>after-unit-test-execution</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report
-							</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>before-integration-test-execution</id>
-						<phase>pre-integration-test</phase>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<destFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec
-							</destFile>
-							<propertyName>failsafe.jacoco.args</propertyName>
-						</configuration>
-					</execution>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>spring-cloud-gcp-starter-logging</artifactId>
+        </dependency>
 
-					<execution>
-						<id>after-integration-test-execution</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec
-							</dataFile>
-							<outputDirectory>
-								${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report
-							</outputDirectory>
-						</configuration>
-					</execution>
-					<execution>
-						<id>merge-unit-and-integration</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>merge</goal>
-						</goals>
-						<configuration>
-							<fileSets>
-								<fileSet>
-									<directory>${project.build.directory}/jacoco-output/</directory>
-									<includes>
-										<include>*.exec</include>
-									</includes>
-								</fileSet>
-							</fileSets>
-							<destFile>${project.build.directory}/jacoco-output/merged.exec</destFile>
-						</configuration>
-					</execution>
-					<execution>
-						<id>create-merged-report</id>
-						<phase>post-integration-test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco
-							</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+        <dependency>
+            <groupId>ch.qos.logback.contrib</groupId>
+            <artifactId>logback-json-classic</artifactId>
+            <version>${logback-json-classic.version}</version>
+        </dependency>
 
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>${spring-doc.openapi.version}</version>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>${maven-checkstyle-plugin.version}</version>
-				<configuration>
-					<sourceDirectories>
-						<sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-					</sourceDirectories>
-					<testSourceDirectories>
-						<sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
-					</testSourceDirectories>
-					<suppressionsLocation>config/checkstyle-suppression.xml</suppressionsLocation>
-					<excludes>target/generated-sources/**/*</excludes>
-					<configLocation>config/google_checks_custom.xml</configLocation>
-					<violationSeverity>warning</violationSeverity>
-					<failOnViolation>true</failOnViolation>
-					<failsOnError>true</failsOnError>
-					<violationIgnore>false</violationIgnore>
-					<consoleOutput>true</consoleOutput>
-					<rulesFiles>config/google_checks_custom.xml</rulesFiles>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>com.puppycrawl.tools</groupId>
-						<artifactId>checkstyle</artifactId>
-						<version>${checkstyle.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
 
-			<plugin>
-				<!--fix this section-->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<parameters>true</parameters>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<compilerArgs>
-						<arg>-Xlint:all</arg>
-						<arg>-Xlint:-processing</arg>
-					</compilerArgs>
-					<showWarnings>true</showWarnings>
-					<showDeprecation>true</showDeprecation>
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${mapstruct.version}</version>
-						</path>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
-						</path>
-						<path>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok-mapstruct-binding</artifactId>
-							<version>0.2.0</version>
-						</path>
-						<!-- other annotation processors -->
-					</annotationProcessorPaths>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-core</artifactId>
+        </dependency>
 
-			<plugin>
-				<groupId>org.projectlombok</groupId>
-				<artifactId>lombok-maven-plugin</artifactId>
-				<!--fix this-->
-				<version>${lombok-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>delombok</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<addOutputDirectory>false</addOutputDirectory>
-					<sourceDirectory>src/main/java</sourceDirectory>
-					<outputDirectory>${project.build.directory}/delombok</outputDirectory>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.1.1</version>
-				<configuration>
-					<defaultVersion>${project.version}</defaultVersion>
-					<sourcepath>target/generated-sources/delombok</sourcepath>
-				</configuration>
-			</plugin>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-enforcer-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>enforce</id>
-						<configuration>
-							<rules>
-								<dependencyConvergence/>
-							</rules>
-						</configuration>
-						<goals>
-							<goal>enforce</goal>
-						</goals>
-						<phase>validate</phase>
-					</execution>
-				</executions>
-			</plugin>
+        <!-- Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<delimiters>
-						<delimiter>${resource.delimiter}</delimiter>
-					</delimiters>
-					<useDefaultDelimiters>false</useDefaultDelimiters>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-						<nonFilteredFileExtension>swf</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-			</plugin>
+        <!--<dependency>-->
+        <!--	<groupId>at.rewe.riag.tech.app-arch</groupId>-->
+        <!--	<artifactId>rewe-archunit-rules</artifactId>-->
+        <!--	<version>${rewe-archunit-rules.version}</version>-->
+        <!--	<scope>test</scope>-->
+        <!--</dependency>-->
+    </dependencies>
 
-			<plugin>
-				<groupId>com.google.cloud.tools</groupId>
-				<artifactId>jib-maven-plugin</artifactId>
-				<version>${jib-maven-plugin.version}</version>
-				<configuration>
-					<from>
-						<image>
-							gcr.io/distroless/java21@sha256:032a034554a750adf55c44fa445d7a44cd875f73161660b472c793723703925c
-						</image>
-					</from>
-					<container>
-						<creationTime>USE_CURRENT_TIMESTAMP</creationTime>
-						<!-- this is just to disable the warnings when jib tries to infer the entry class
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>com.google.cloud</groupId>
+                <artifactId>spring-cloud-gcp-dependencies</artifactId>
+                <version>${spring-cloud-gcp.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.yaml</include>
+                </includes>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.sonarsource.scanner.maven</groupId>
+                    <artifactId>sonar-maven-plugin</artifactId>
+                    <version>${sonar-maven-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>target/generated-sources/**/*</exclude>
+                        <exclude>at/rewe/**/*DTO.*</exclude>
+                        <exclude>at/rewe/**/*Entity.*</exclude>
+                        <exclude>at/rewe/**/*EntityKey.*</exclude>
+                        <exclude>at/rewe/**/*Config*.*</exclude>
+                        <exclude>at/rewe/**/config/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>before-unit-test-execution</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</destFile>
+                            <propertyName>surefire.jacoco.args</propertyName>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>after-unit-test-execution</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-output/jacoco-unit-tests.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco-unit-test-coverage-report
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>before-integration-test-execution</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                        <configuration>
+                            <destFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec
+                            </destFile>
+                            <propertyName>failsafe.jacoco.args</propertyName>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>after-integration-test-execution</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-output/jacoco-integration-tests.exec
+                            </dataFile>
+                            <outputDirectory>
+                                ${project.reporting.outputDirectory}/jacoco-integration-test-coverage-report
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>merge-unit-and-integration</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>merge</goal>
+                        </goals>
+                        <configuration>
+                            <fileSets>
+                                <fileSet>
+                                    <directory>${project.build.directory}/jacoco-output/</directory>
+                                    <includes>
+                                        <include>*.exec</include>
+                                    </includes>
+                                </fileSet>
+                            </fileSets>
+                            <destFile>${project.build.directory}/jacoco-output/merged.exec</destFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>create-merged-report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                        <configuration>
+                            <dataFile>${project.build.directory}/jacoco-output/merged.exec</dataFile>
+                            <outputDirectory>${project.reporting.outputDirectory}/jacoco
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <configuration>
+                    <sourceDirectories>
+                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                    </sourceDirectories>
+                    <testSourceDirectories>
+                        <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
+                    </testSourceDirectories>
+                    <suppressionsLocation>config/checkstyle-suppression.xml</suppressionsLocation>
+                    <excludes>target/generated-sources/**/*</excludes>
+                    <configLocation>config/google_checks_custom.xml</configLocation>
+                    <violationSeverity>warning</violationSeverity>
+                    <failOnViolation>true</failOnViolation>
+                    <failsOnError>true</failsOnError>
+                    <violationIgnore>false</violationIgnore>
+                    <consoleOutput>true</consoleOutput>
+                    <rulesFiles>config/google_checks_custom.xml</rulesFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>${checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <!--fix this section-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <parameters>true</parameters>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                        <arg>-Xlint:-processing</arg>
+                    </compilerArgs>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>0.2.0</version>
+                        </path>
+                        <!-- other annotation processors -->
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <!--fix this-->
+                <version>${lombok-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <addOutputDirectory>false</addOutputDirectory>
+                    <sourceDirectory>src/main/java</sourceDirectory>
+                    <outputDirectory>${project.build.directory}/delombok</outputDirectory>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.1</version>
+                <configuration>
+                    <defaultVersion>${project.version}</defaultVersion>
+                    <sourcepath>target/generated-sources/delombok</sourcepath>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                        </configuration>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <configuration>
+                    <delimiters>
+                        <delimiter>${resource.delimiter}</delimiter>
+                    </delimiters>
+                    <useDefaultDelimiters>false</useDefaultDelimiters>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+                        <nonFilteredFileExtension>swf</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <configuration>
+                    <from>
+                        <image>
+                            gcr.io/distroless/java21@sha256:032a034554a750adf55c44fa445d7a44cd875f73161660b472c793723703925c
+                        </image>
+                    </from>
+                    <container>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        <!-- this is just to disable the warnings when jib tries to infer the entry class
                         from maven-jar plugin -->
-						<mainClass>at.rewe.Application</mainClass>
-					</container>
-					<!--					<extraDirectories>-->
-					<!--						<paths>-->
-					<!--							<path>-->
-					<!--								<from>db/migration</from>-->
-					<!--								<into>/db/migration</into>-->
-					<!--							</path>-->
-					<!--						</paths>-->
-					<!--					</extraDirectories>-->
-				</configuration>
-			</plugin>
+                        <mainClass>at.rewe.Application</mainClass>
+                    </container>
+                    <!--					<extraDirectories>-->
+                    <!--						<paths>-->
+                    <!--							<path>-->
+                    <!--								<from>db/migration</from>-->
+                    <!--								<into>/db/migration</into>-->
+                    <!--							</path>-->
+                    <!--						</paths>-->
+                    <!--					</extraDirectories>-->
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
-				<executions>
-					<execution>
-						<id>auto-clean</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>clean</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>target</directory>
-							<includes>
-								<include>**/*</include>
-								<include>**/*</include>
-							</includes>
-							<excludes>
-								<exclude>**/important.log</exclude>
-								<exclude>**/another-important.log</exclude>
-							</excludes>
-							<followSymlinks>false</followSymlinks>
-						</fileset>
-					</filesets>
-				</configuration>
-			</plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>auto-clean</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>target</directory>
+                            <includes>
+                                <include>**/*</include>
+                                <include>**/*</include>
+                            </includes>
+                            <excludes>
+                                <exclude>**/important.log</exclude>
+                                <exclude>**/another-important.log</exclude>
+                            </excludes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${maven-surefire-plugin.version}</version>
-				<configuration>
-					<skipTests>${maven.surefire.skipTests}</skipTests>
-					<failIfNoTests>${maven.surefire.failIfNoTests}</failIfNoTests>
-					<!-- allow argLine to be modified by other plugins, e.g. jacoco -->
-					<argLine>${surefire.jacoco.args}</argLine>
-					<includes>
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>${maven.surefire.skipTests}</skipTests>
+                    <failIfNoTests>${maven.surefire.failIfNoTests}</failIfNoTests>
+                    <!-- allow argLine to be modified by other plugins, e.g. jacoco -->
+                    <argLine>${surefire.jacoco.args}</argLine>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>${maven-failsafe-plugin.version}</version>
-				<configuration>
-					<skipTests>${maven.failsafe.skipTests}</skipTests>
-					<failIfNoTests>${maven.failsafe.failIfNoTests}</failIfNoTests>
-					<!-- allow argLine to be modified by other plugins, e.g. jacoco -->
-					<argLine>${failsafe.jacoco.args}</argLine>
-					<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-					<includes>
-						<include>*/**CT.java</include>
-						<include>*/**IT.java</include>
-					</includes>
-					<excludes>
-						<exclude>some test to exclude here</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${maven-failsafe-plugin.version}</version>
+                <configuration>
+                    <skipTests>${maven.failsafe.skipTests}</skipTests>
+                    <failIfNoTests>${maven.failsafe.failIfNoTests}</failIfNoTests>
+                    <!-- allow argLine to be modified by other plugins, e.g. jacoco -->
+                    <argLine>${failsafe.jacoco.args}</argLine>
+                    <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                    <includes>
+                        <include>*/**CT.java</include>
+                        <include>*/**IT.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>some test to exclude here</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
-		</plugins>
-	</build>
+        </plugins>
+    </build>
 
 </project>

@@ -7,13 +7,6 @@ public class CellReference {
   private String cellReference;
   private String regex;
 
-  public String getRegex() {
-    return regex;
-  }
-
-  public void setRegex(String regex) {
-    this.regex = regex;
-  }
 
   public CellReference(String cr) {
     this.cellReference = cr;
@@ -21,21 +14,21 @@ public class CellReference {
   }
 
   public int[] convertToIndicies() {
-    String columnPart=cellReference.replaceAll("[^A-Za-z]", "");
-    String rowPart = cellReference.replaceAll("[^0-9]","");
+    String columnPart = cellReference.replaceAll("[^A-Za-z]", "");
+    String rowPart = cellReference.replaceAll("[^0-9]", "");
 
-    rowIndex = Integer.parseInt(rowPart)-1;
+    rowIndex = Integer.parseInt(rowPart) - 1;
 
     colIndex = 0;
 
-    for(int i = 0; i<columnPart.length(); i++) {
+    for (int i = 0; i < columnPart.length(); i++) {
       colIndex *= 26;
       colIndex += columnPart.charAt(i) - 'A' + 1;
     }
     colIndex--;
 
 
-    return new int[]{rowIndex, colIndex};
+    return new int[] {rowIndex, colIndex};
   }
 
   public int getRowIndex() {
@@ -44,6 +37,14 @@ public class CellReference {
 
   public int getColIndex() {
     return colIndex;
+  }
+
+  public String getRegex() {
+    return regex;
+  }
+
+  public void setRegex(String regex) {
+    this.regex = regex;
   }
 
 }
